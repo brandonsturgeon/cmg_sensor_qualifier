@@ -41,7 +41,7 @@ Which can then be parsed verbatim, mitigating the risk of a developer error caus
 Conceptually, an extra check could be implemented to ensure that the values are correct before proceeding (something that is not possible in the current system due to the positional nature of the values).
 
 
-*Minimizing risk of mistakes/bugs is of grave importance when running tests on essential sensors.*
+**Minimizing risk of mistakes/bugs is of grave importance when running tests on essential sensors.**
 
 Another option would be to have each module output its own log for each testing session.
 
@@ -54,7 +54,6 @@ Turns out, that can get a bit complicated, and may add more complexity than it s
 
 
 I believe that keeping complexity to a minimum is the best way to ensure that this project is both maintainable and extensible, even if it means greater repetition. 
-
 Especially when I can only guess what future sensors may need to check.
 
 
@@ -64,7 +63,6 @@ Future developers can expect to write most of their own checks and comparisons w
 
 
 One of my primary goals with the `SensorModule` was to exclude anything module-specific.
-
 I was unable to achieve that goal to the degree I initially hoped for.
 
 
