@@ -6,25 +6,20 @@ require_relative 'statistics'
 class Thermometer < SensorModule
   def initialize(name, baseline)
     super(name, baseline)
+  end
 
-    @thresholds = {
-      classifications: [
-        {
-          name: 'ultra precise',
-          ranges: {
-            mean: 0..0.5,
-            deviation: 0...3
-          }
-        },
-        {
-          name: 'very precise',
-          ranges: {
-            mean: 0..0.5,
-            deviation: 0...5
-          }
-        }
-      ],
-      default: 'precise'
-    }
+  def ultra_precise?
+    mean_diff <= 0.5 && deviation < 3
+  end
+
+  def very_precise?
+    mean_diff <= 0.5 && deviation < 5
+  end
+
+  def classify
+    return 'ultra precise' if ultra_precise?
+    return 'very precise' if very_precise?
+
+    'precise'
   end
 end
