@@ -2,17 +2,19 @@
 
 require 'descriptive-statistics'
 
-require_relative 'modules'
-require_relative 'monoxide'
-require_relative 'thermometer'
-require_relative 'humidity'
+require_relative './utils/statistics'
+
+require_relative './modules/sensor_module'
+require_relative './modules/monoxide'
+require_relative './modules/thermometer'
+require_relative './modules/humidity'
 
 # Entry Point
 class SensorEvaluator
   def initialize(log_file)
     @log_file = log_file
 
-    # TODO: Have the modules tell this class
+    # TODO: Have the sensor modules tell this class
     # what their mapping is, instead of defining it here
     @sensor_map = {
       humidity: Humidity,
@@ -69,7 +71,7 @@ class SensorEvaluator
       end
 
       # TODO: Verify that this is actually a
-      # new measurement at this point and not an unexpected line
+      # new sensor at this point and not an unexpected line
       measurement = chunk1.to_sym
       sensor_name = chunk2
 

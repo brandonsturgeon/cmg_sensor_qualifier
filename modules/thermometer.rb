@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'statistics'
-
 # TODO: Find a way to extract the mean_diff and deviation
 # thresholds into something more modular and more easily configurable
 
