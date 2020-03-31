@@ -14,6 +14,14 @@ class SensorModule
     @measurements.push(measurement.to_f)
   end
 
+  def mean_diff
+    (@baseline - @maths.mean(@measurements)).abs
+  end
+
+  def deviation
+    @maths.deviation(@measurements)
+  end
+
   def classify
     @thresholds[:classifications].each do |classification|
       name = classification[:name]

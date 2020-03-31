@@ -6,17 +6,13 @@ require_relative 'statistics'
 class Monoxide < SensorModule
   def initialize(name, baseline)
     super(name, baseline)
+  end
 
-    @thresholds = {
-      classifications: [
-        {
-          name: 'keep',
-          ranges: {
-            mean: 0..3
-          }
-        }
-      ],
-      default: 'discard'
-    }
+  def all_measurements_in_range?
+    @measurements.map { |m| (@baseline - m).abs <= 3 }.all?
+  end
+
+  def classify
+    all_measurements_in_range? ? 'keep' : 'discard'
   end
 end
