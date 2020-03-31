@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # TODO: Find a way to extract the mean_diff and deviation
-# thresholds into something more modular and more easily configurable
+# thresholds into something more modular and more easily configurable.
+# Also should remove the recalculation of mean_diff and deviation for performance reasons
 
 # Thermometer
 class Thermometer < SensorModule
