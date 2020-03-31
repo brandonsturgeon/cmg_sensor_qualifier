@@ -12,6 +12,8 @@ class SensorEvaluator
   def initialize(log_file)
     @log_file = log_file
 
+    # TODO: Have the modules tell this class
+    # what their mapping is, instead of defining it here
     @sensor_map = {
       humidity: Humidity,
       thermometer: Thermometer,
@@ -45,25 +47,35 @@ class SensorEvaluator
         next
       end
 
+      # TODO: Allow this to handle N chunks
+      # (See next TODO)
       chunk1, chunk2 = logline.split(' ')
 
+      # TODO: Send the whole dang line over
+      # to the sensor module so it can handle it however it sees fit
+      # (It doesn't make sense to be so definitive
+      # about the data format at this point, it's limiting)
+      #
+      # For example, one benefit would be that we could get rid of
+      # the regex checks alltogether and just send everything
+      # between each sensor chunk to the module
       is_measurement = @patterns[:timestamp].match(chunk1)
       if is_measurement
         value = chunk2
 
-        puts "Adding #{value} to #{current_sensor}"
         sensors[current_sensor].add_measurement(value)
 
         next
       end
 
-      # must be a new measurement at this point
+      # TODO: Verify that this is actually a
+      # new measurement at this point and not an unexpected line
       measurement = chunk1.to_sym
       sensor_name = chunk2
+
       current_sensor = sensor_name
 
       module_type = @sensor_map[measurement]
-      puts "Creating new sensor with name #{sensor_name} using baseline of #{baseline[measurement]}"
       new_module = module_type.new(sensor_name, baseline[measurement])
 
       sensors[sensor_name] = new_module
